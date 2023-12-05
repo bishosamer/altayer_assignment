@@ -14,7 +14,7 @@ class NewsRepository {
   Future<List<Article>> fetchNewsByKeyword(String keyword) async {
     try {
       var response = await http.get(
-        Uri.parse("https://api.publicapis.org/entries"),
+        Uri.parse("$baseUrl/everything?q=$keyword&apiKey=$apiKey"),
       );
       if (response.statusCode == 200) {
         final parsedJson = jsonDecode(response.body);
