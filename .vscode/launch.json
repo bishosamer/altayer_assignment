@@ -5,6 +5,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Dart: Run all Tests",
+            "type": "dart",
+            "request": "launch",
+            "program": "./test/",
+            "args": ["--dart-define=API_KEY=e6df1522baab48819863a137716c62a6"]
+
+        },
+        {
             "name": "altayer_assignment",
             "request": "launch",
             "type": "dart",
@@ -14,13 +22,17 @@
             "name": "altayer_assignment (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": ["--dart-define=API_KEY=e6df1522baab48819863a137716c62a6"]
+
         },
         {
             "name": "altayer_assignment (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": ["--dart-define=API_KEY=e6df1522baab48819863a137716c62a6"]
+
         }
     ]
 }

@@ -7,8 +7,7 @@ part 'news_event.dart';
 part 'news_state.dart';
 
 class NewsBloc extends Bloc<NewsEvent, NewsState> {
-  NewsRepository repo = NewsRepository();
-  NewsBloc() : super(NewsInitial()) {
+  NewsBloc(NewsRepository repo) : super(NewsInitial()) {
     on<GetNews>((event, emit) async {
       emit(NewsLoading(controller: event.controller));
       try {

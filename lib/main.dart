@@ -1,4 +1,5 @@
 import 'package:altayer_assignment/bloc/news_bloc/news_bloc.dart';
+import 'package:altayer_assignment/repository/news_repository.dart';
 import 'package:altayer_assignment/ui/pages/article_list.dart';
 import 'package:altayer_assignment/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/articles',
       builder: (context, state) {
-        return ArticlePage();
+        return const ArticlePage();
       },
     )
   ],
@@ -31,15 +32,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NewsBloc(),
-      child: MaterialApp.router(
-          title: 'Altayer Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          routerConfig: router),
+    return RepositoryProvider(
+      create: (context) => NewsRepository(),
+      child: BlocProvider(
+        create: (context) => NewsBloc(context.read<NewsRepository>()),
+        child: MaterialApp.router(
+            title: 'Altayer Demo',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              useMaterial3: true,
+            ),
+            routerConfig: router),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:altayer_assignment/bloc/news_bloc/news_bloc.dart';
+import 'package:altayer_assignment/ui/widgets/article_card.dart';
 import 'package:altayer_assignment/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,11 +42,7 @@ class ArticlePage extends StatelessWidget {
               body: ListView.builder(
                 itemCount: state.articles.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text(state.articles[index].title),
-                    subtitle: Text(state.articles[index].description),
-                    onTap: () {},
-                  );
+                  return ArticleCard(article: state.articles[index]);
                 },
               ));
         } else if (state is NewsLoading) {
