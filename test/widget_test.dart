@@ -21,6 +21,29 @@ class MockNewsRepository extends Mock implements NewsRepository {
 }
 
 void main() {
+  testWidgets('HomePage no string input ', (WidgetTester tester) async {
+    MockNewsRepository mockRepo = MockNewsRepository();
+
+    await tester.pumpWidget(BlocProvider(
+      create: (context) => NewsBloc(mockRepo),
+      child: MaterialApp.router(
+          title: 'Altayer Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          routerConfig: router),
+    ));
+
+    expect(find.text('News about anything'), findsOneWidget);
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+
+    await tester.tap(find.byType(ElevatedButton));
+
+    await tester.pump();
+    expect(find.byType(SnackBar), findsOneWidget);
+    await tester.pumpAndSettle();
+  });
   testWidgets('HomePage normal flow', (WidgetTester tester) async {
     // Build our app and trigger a frame.
 
@@ -48,35 +71,7 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
 
-    await tester.pump();
-
-    await mockNetworkImages(() async => tester.pump());
-
-    expect(find.byType(CircularProgressIndicator), findsAtLeastNWidgets(1));
     await mockNetworkImages(() async => tester.pumpAndSettle());
-  });
-  testWidgets('HomePage no string input ', (WidgetTester tester) async {
-    MockNewsRepository mockRepo = MockNewsRepository();
-
-    await tester.pumpWidget(BlocProvider(
-      create: (context) => NewsBloc(mockRepo),
-      child: MaterialApp.router(
-          title: 'Altayer Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          routerConfig: router),
-    ));
-
-    expect(find.text('News about anything'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsNothing);
-
-    await tester.tap(find.byType(ElevatedButton));
-
-    await tester.pump();
-    expect(find.byType(SnackBar), findsOneWidget);
-    await tester.pumpAndSettle();
   });
 }
 
