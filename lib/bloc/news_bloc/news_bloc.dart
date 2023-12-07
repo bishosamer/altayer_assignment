@@ -23,8 +23,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
       emit(NewsLoading(controller: event.controller));
       try {
-        final articles = await repo.fetchNewsByKeyword(event.controller.text);
-        emit(NewsLoaded(articles: articles, controller: event.controller));
+        if (RegExp(r'^[a-zA-Z0-9]+$').hasMatch(event.controller.text)) {
+          final articles = await repo.fetchNewsByKeyword(event.controller.text);
+          emit(NewsLoaded(articles: articles, controller: event.controller));
+        } else {
+          emit(ErrorState(message: 'Please enter a valid keyword.'));
+        }
       } catch (e) {
         emit(ErrorState(message: e.toString()));
       }
