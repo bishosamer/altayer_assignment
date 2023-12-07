@@ -12,27 +12,23 @@ class NewsRepository {
   final String baseUrl = 'https://newsapi.org/v2';
 
   Future<List<Article>> fetchNewsByKeyword(String keyword) async {
-    try {
-      var response = await http.get(
-        Uri.parse("$baseUrl/everything?q=$keyword&apiKey=$apiKey"),
-      );
-      if (response.statusCode == 200) {
-        final parsedJson = jsonDecode(response.body);
+    var response = await http.get(
+      Uri.parse("$baseUrl/everything?q=$keyword&apiKey=$apiKey"),
+    );
+    if (response.statusCode == 200) {
+      final parsedJson = jsonDecode(response.body);
 
-        if (parsedJson['articles'] != null) {
-          List<dynamic> articlesJson = parsedJson['articles'];
-          List<Article> articles = articlesJson.map((articleJson) {
-            return Article.fromJson(articleJson);
-          }).toList();
-          return articles;
-        } else {
-          return [];
-        }
+      if (parsedJson['articles'] != null) {
+        List<dynamic> articlesJson = parsedJson['articles'];
+        List<Article> articles = articlesJson.map((articleJson) {
+          return Article.fromJson(articleJson);
+        }).toList();
+        return articles;
       } else {
-        throw Exception('Failed to load news');
+        return [];
       }
-    } catch (e) {
-      throw Exception('Failed to connect to the server');
+    } else {
+      throw Exception(response.reasonPhrase);
     }
   }
 }

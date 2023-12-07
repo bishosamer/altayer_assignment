@@ -8,3 +8,5 @@ class GetNews extends NewsEvent {
 
   GetNews({required this.controller});
 }
+
+class NoInternetEvent extends NewsEvent {}

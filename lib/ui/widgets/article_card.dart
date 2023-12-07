@@ -15,7 +15,7 @@ class ArticleCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Display the article image if available
+          
             if (article.urlToImage.isNotEmpty)
               Image.network(
                 article.urlToImage,

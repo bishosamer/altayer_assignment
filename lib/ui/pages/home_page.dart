@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       body: BlocListener<NewsBloc, NewsState>(
         listener: (context, state) {
           if (state is NewsLoaded) {
-            context.go('/articles');
+            context.push('/articles');
           }
 
           if (state is ErrorState) {

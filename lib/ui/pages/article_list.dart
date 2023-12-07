@@ -5,6 +5,7 @@ import 'package:altayer_assignment/ui/widgets/article_card.dart';
 import 'package:altayer_assignment/ui/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class ArticlePage extends StatelessWidget {
   const ArticlePage({super.key});
@@ -15,6 +16,12 @@ class ArticlePage extends StatelessWidget {
         if (state is NewsLoaded) {
           return Scaffold(
               appBar: AppBar(
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    context.pop();
+                  },
+                ),
                 title: const Text('Article List'),
                 actions: [
                   SizedBox(
